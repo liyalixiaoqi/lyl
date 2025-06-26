@@ -1,0 +1,12 @@
+# 1. 创建 commit-msg 文件
+mkdir -p .husky
+touch .husky/commit-msg
+
+# 2. 编辑文件内容
+echo '#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx --no -- commitlint --edit "$1"' > .husky/commit-msg
+
+# 3. 添加执行权限
+chmod +x .husky/commit-msg
