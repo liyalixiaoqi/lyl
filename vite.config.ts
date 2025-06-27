@@ -13,7 +13,7 @@ import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import ElementPlus from "unplugin-element-plus/vite";
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import { viteMockServe } from 'vite-plugin-mock';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,7 +35,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       vue(),
       // jsx文件编译插件
       vueJsx(),
-
+      viteMockServe({
+        // 如果接口为 /mock/xxx 以 mock 开头就会被拦截响应配置的内容
+        mockPath: 'mock', // 数据模拟需要拦截的请求起始 URL
+        enable: true, // 是否启用  
+      }),
       ElementPlus({}),
       AutoImport({
         resolvers: [IconsResolver(), ElementPlusResolver()],
