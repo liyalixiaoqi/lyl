@@ -17,7 +17,7 @@ const useUserStore = defineStore('userInfo', {
     userInfo: {},
   }),
   actions: {
-    setUserInfo(userInfo: UserInfo) {
+    setUserInfo() {
         getUserList({}).then((res: any) => {
         this.userName = res.data.userName
         this.userRole = res.data.userRole
