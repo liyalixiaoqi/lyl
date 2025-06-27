@@ -43,6 +43,14 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           // 发起请求时将 '/api' 替换为 ''
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
+
+        '/mock/api': {
+          target: 'http://xxx:9000',
+          // 改变 Host Header
+          changeOrigin: true,
+          // 发起请求时将 '/api' 替换为 ''
+          rewrite: (path) => path.replace(/^\/mock\/api/, ''),
+        },
       },
     },
     // 打包配置

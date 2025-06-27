@@ -1,13 +1,13 @@
-import { get, post, put, del, patch } from '../http/request'
+import { get, post } from '../http/request';
 
-export const getUserList = (params: any) => {
-        return get('/user/list', params, {
-            baseURL: '/api'
-        })
-    }
+export const getUserList = (params: Object) => {
+	return get('/user/list', params, {
+		baseURL: '/api'
+	});
+};
 
-export const addUser = (data: any) => {
-    return post('/user/add', data, {
-        baseURL: '/api'
-    })
-}
+export const addUser = (data: Object) => {
+	return post('/user/add', data, {
+		baseURL: '/api'
+	});
+};

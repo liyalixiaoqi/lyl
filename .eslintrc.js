@@ -1,4 +1,5 @@
 module.exports = {
+    root: true, // 添加这行，防止 ESLint 查找用户主目录下的配置
     // 使 eslint 支持 node 与 ES6
     env: {
         browser: true,

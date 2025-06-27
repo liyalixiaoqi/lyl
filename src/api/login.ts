@@ -1,27 +1,30 @@
-import { post } from '../http/request'
+import { post } from '../http/request';
 type LoginData = {
-    username: string
-    password: string
-}
+	username: string;
+	password: string;
+};
 
 type RegisterData = {
-    username: string
-    password: string
-}
+	username: string;
+	password: string;
+};
+type LogoutData = {
+	token: string;
+};
 export const login = (data: LoginData) => {
-    return post('/login', data, {
-        baseURL: '/api'
-    })
-}
+	return post('/login', data, {
+		baseURL: '/api'
+	});
+};
 
 export const register = (data: RegisterData) => {
-    return post('/register', data, {
-        baseURL: '/api'
-    })
-}
+	return post('/register', data, {
+		baseURL: '/api'
+	});
+};
 
-export const logout = (data: any) => {
-    return post('/logout', data, {
-        baseURL: '/api'
-    })
-}
+export const logout = (data: LogoutData) => {
+	return post('/logout', data, {
+		baseURL: '/api'
+	});
+};
