@@ -7,6 +7,15 @@ declare module "*.vue" {
   export default component;
 }
 
+// 确保 TypeScript 识别 .vue 文件
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    $refs: {
+      [key: string]: HTMLElement | any
+    }
+  }
+}
+
 // 环境变量类型声明
 interface ImportMetaEnv {
   readonly VITE_APP_BASE_API: string;

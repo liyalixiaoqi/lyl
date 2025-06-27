@@ -46,6 +46,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         dts: path.resolve(__dirname, './types/auto-imports.d.ts'),
       }),
       Components({
+        dirs: [path.resolve(__dirname, './src/components/')],
         resolvers: [IconsResolver(), ElementPlusResolver()],
         dts: path.resolve(__dirname, './types/components.d.ts'),
       }),
@@ -69,7 +70,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       proxy: {
         // 这里的意思是 以/api开头发送的请求都会被转发到 http://xxx:3000
         '/api': {
-          target: 'http://xxx:9000',
+          target: 'http://localhost:3000/',
           // 改变 Host Header
           changeOrigin: true,
           // 发起请求时将 '/api' 替换为 ''
@@ -77,7 +78,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         },
 
         '/mock/api': {
-          target: 'http://xxx:9000',
+          target: 'http://localhost:3000/',
           // 改变 Host Header
           changeOrigin: true,
           // 发起请求时将 '/api' 替换为 ''

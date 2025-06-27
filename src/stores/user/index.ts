@@ -1,36 +1,41 @@
 import { defineStore } from 'pinia';
-import { getUserList } from '../../api/user';
+import { login } from '@/api/login';
 
 interface UserInfo {
 	userName: string;
-	userAvatar?: string;
 	userRole: string;
 	userToken: string;
-	userInfo: object;
 }
 const useUserStore = defineStore('userInfo', {
 	state: (): UserInfo => ({
 		userName: '',
-		userAvatar: '',
 		userRole: '',
 		userToken: '',
-		userInfo: {}
 	}),
 	actions: {
-		setUserInfo() {
-			getUserList({}).then((res: any) => {
-				this.userName = res.data.userName;
-				this.userRole = res.data.userRole;
-				this.userToken = res.data.userToken;
-				this.userInfo = res.data.userInfo;
-			});
+	  async	login(userInfo: UserInfo) {
+		try {
+			const res = await login(userInfo);
+			console.log(res,userInfo,`res`);
+			this.userName = res.userName;
+			this.userRole = res.userRole;
+			this.userToken = res.userToken;
+			return Promise.resolve(res);
+		} catch (error) {
+			console.log(error);
+			return Promise.reject(error);
+		}
 		}
 	},
 	persist: {
-		key: 'userInfo',
-		storage: localStorage
+    enabled: true,  // 确保开启持久化
+    strategies: [
+      {
+        key: 'user',
+        storage: localStorage,
+        paths: ['userName', 'userRole', 'userToken']  // 指定要持久化的字段
+      }
+    ]
 	}
 });
-export default function useUserInfo() {
-	return useUserStore();
-}
+export default useUserStore;

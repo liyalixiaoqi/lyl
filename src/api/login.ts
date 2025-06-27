@@ -12,19 +12,13 @@ type LogoutData = {
 	token: string;
 };
 export const login = (data: LoginData) => {
-	return post('/login', data, {
-		baseURL: '/api'
-	});
+	return post('/login', data);
 };
 
 export const register = (data: RegisterData) => {
-	return post('/register', data, {
-		baseURL: '/api'
-	});
+	return post('/register', data);
 };
 
 export const logout = (data: LogoutData) => {
-	return post('/logout', data, {
-		baseURL: '/api'
-	});
+	return post('/logout', data);
 };

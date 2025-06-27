@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { ElMessage } from 'element-plus';
 import { getCodeMessage } from './ststus';
+
 const service = axios.create({
-	baseURL: import.meta.env.VITE_APP_BASE_API,
+	baseURL: import.meta.env.MODE === 'development' ? import.meta.env.VITE_APP_BASE_MOCK_API : import.meta.env.VITE_APP_BASE_API,
 	timeout: 5000
 });
 
@@ -44,7 +45,7 @@ const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
 		service.request<any, AxiosResponse<BaseResponse<T>>>(conf).then((res: AxiosResponse<BaseResponse<T>>) => {
 			const data = res.data;
 			// 如果data.code为错误代码返回message信息
-			if (data.code != 1) {
+			if (data.code != 200) {
 				ElMessage({
 					message: data.message,
 					type: 'error'
