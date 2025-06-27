@@ -3,6 +3,7 @@ import type { UserConfig, ConfigEnv } from 'vite';
 import { fileURLToPath } from 'url';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import path from 'path';  // 添加这行
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
@@ -77,8 +78,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     // 配置别名
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-        '#': fileURLToPath(new URL('./types', import.meta.url)),
+        '@': path.resolve(__dirname, './src'),
+        '#': path.resolve(__dirname, './types')
       },
     },
   };
