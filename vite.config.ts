@@ -1,9 +1,22 @@
 import { defineConfig, loadEnv } from 'vite';
 import type { UserConfig, ConfigEnv } from 'vite';
-import { fileURLToPath } from 'url';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import path from 'path';  // 添加这行
+
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { dirname } from 'path';
+
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import Icons from "unplugin-icons/vite";
+import IconsResolver from "unplugin-icons/resolver";
+import ElementPlus from "unplugin-element-plus/vite";
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
@@ -22,6 +35,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       vue(),
       // jsx文件编译插件
       vueJsx(),
+
+      ElementPlus({}),
+      AutoImport({
+        resolvers: [IconsResolver(), ElementPlusResolver()],
+        dts: path.resolve(__dirname, './types/auto-imports.d.ts'),
+      }),
+      Components({
+        resolvers: [IconsResolver(), ElementPlusResolver()],
+        dts: path.resolve(__dirname, './types/components.d.ts'),
+      }),
+      Icons({
+        compiler: "vue3",
+        autoInstall: true,
+      }),
     ],
     // 运行后本地预览的服务器
     server: {
