@@ -23,8 +23,8 @@ import { User, Lock } from "@element-plus/icons-vue";
 import { useRouter } from 'vue-router';
 import useUserStore from "@/stores/user";
 
-const userStore = useUserStore();
 const router = useRouter();
+const userStore = useUserStore();
 const userInfo = ref({
   username: "",
   password: "",

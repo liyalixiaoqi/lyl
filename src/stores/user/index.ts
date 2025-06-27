@@ -25,6 +25,12 @@ const useUserStore = defineStore('userInfo', {
 			console.log(error);
 			return Promise.reject(error);
 		}
+		},
+	logout() {
+      localStorage.removeItem('userInfo');
+      this.userName = '';
+      this.userRole = '';
+      this.userToken = '';
 		}
 	},
 	persist: {
