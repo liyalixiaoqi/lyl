@@ -9,19 +9,19 @@
         </div>
       <div class="header-right">
         <el-icon><UserFilled /></el-icon>
-        <h3>admin</h3>
-        <el-icon class="header-right-icon"><ArrowDown /></el-icon>
+        <h3>{{ userName }}</h3>
         <span @click="handleLogout" class="header-right-icon">退出登录</span>
       </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import {  UserFilled,ArrowDown } from "@element-plus/icons-vue";
+import {  UserFilled } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import useUserStore from "@/stores/user";
 const router = useRouter();
 const userStore = useUserStore();
+const userName = userStore.userName;
 const handleLogout = () => {
   userStore.logout();
    router.push("/login");

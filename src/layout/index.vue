@@ -7,37 +7,43 @@
       <el-container>
         <el-aside width="200px">
             <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
+            :default-active=activeIndex
+             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
+            :router="true"
             >
-            <el-menu-item index="1">
+            <el-menu-item v-for="item in menuList" :key="item.path" :index="item.path" >
                 <el-icon><HomeFilled /></el-icon>
-                <span>项目介绍</span>
-            </el-menu-item>
-            <el-menu-item index="2">
-                <el-icon><HomeFilled /></el-icon>
-                <span>用户列表</span>
-            </el-menu-item>
-            <el-menu-item index="3">
-                <el-icon><HomeFilled /></el-icon>
-                <span>角色列表</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <el-icon><HomeFilled /></el-icon>
-                <span>权限列表</span>
+                <span>{{ item.meta.title }}</span>
             </el-menu-item>
             </el-menu>
         </el-aside>
-        <el-main class="main-container">Main</el-main>
+        <el-main class="main-container">
+            <router-view/>
+        </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
+    import { ref } from 'vue';
     import Header from './component/header.vue';
+    import { useRouter,useRoute } from "vue-router";
+    import { HomeFilled,User,Setting,Lock } from "@element-plus/icons-vue";
+
+    const router = useRouter();
+    const route = useRoute();
+    const menuList = router.getRoutes().filter(item => item.meta.isShow);
+    console.log(menuList,route);
+    const activeIndex = route.path;
+    const handleOpen = (key: string) => {
+        router.push(key);
+    }
+    const handleClose = () => {
+        router.push('/');
+    }
 </script>
 
 <style scoped lang="less">

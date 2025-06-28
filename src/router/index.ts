@@ -10,10 +10,7 @@ import useUserStore from '@/stores/user/index';
 const modules: Record<string, any> = import.meta.glob(['./modules/*.ts'], {
 	eager: true
 });
-const routes: Array<RouteRecordRaw> = [  {
-    path: '/',
-    redirect: '/home'  // 添加根路由重定向
-  }];
+const routes: Array<RouteRecordRaw> = [];
 
 // 将路由全部导入数组
 Object.keys(modules).forEach((key) => {
