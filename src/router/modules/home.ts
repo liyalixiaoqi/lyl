@@ -43,6 +43,6 @@ export default {
 				title: '权限列表',
 				isShow: true
 			}
-		},
+		}
 	]
 } as RouteRecordRaw;

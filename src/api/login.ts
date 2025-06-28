@@ -12,13 +12,13 @@ type LogoutData = {
 	token: string;
 };
 export const login = (data: LoginData) => {
-	return post('/login', data);
+	return post('/login', data,{});
 };
 
 export const register = (data: RegisterData) => {
-	return post('/register', data);
+	return post('/register', data,{});
 };
 
 export const logout = (data: LogoutData) => {
-	return post('/logout', data);
+	return post('/logout', data,{});
 };
