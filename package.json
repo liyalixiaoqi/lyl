@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo 0",
+    "test": "vitest",
     "dev": "vite --mode development",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",

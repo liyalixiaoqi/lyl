@@ -11,7 +11,7 @@ import { getAuthList } from '@/api/auth';
 import { onMounted, ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
-const treeRef = ref();
+const treeRef = ref<InstanceType<typeof ElTree>>();
 const auth = ref(route.query.auth);
 const treeData = ref([]);
 const defaultProps = reactive({
@@ -28,7 +28,7 @@ const fetchAuthList = async () => {
 };
 
 const handleChangeAuth = () => {
-  console.log('修改权限', treeRef.value.getCheckedKeys());
+  console.log('修改权限', treeRef.value.getCheckedKeys);
 
 };
 </script>

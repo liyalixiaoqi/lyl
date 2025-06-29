@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import home from './modules/home';
-import login from './modules/login';
 import useUserStore from '@/stores/user/index';
 // import.meta.glob 为 vite 提供的特殊导入方式
 // 它可以将模块中全部内容导入并返回一个Record对象
@@ -25,29 +23,28 @@ const router = createRouter({
 // 白名单路由
 const whiteList = ['/login'];
 router.beforeEach(async (_to, _from, next) => {
-	console.log(localStorage.getItem('userInfo'),`localStorage.getItem('userInfo')`);
-	
+	console.log(localStorage.getItem('userInfo'), `localStorage.getItem('userInfo')`);
+
 	const userStore = useUserStore();
-	  const hasToken = userStore?.userToken;
-	if(hasToken){
-		if(_to.path === '/login'){
+	const hasToken = userStore?.userToken;
+	if (hasToken) {
+		if (_to.path === '/login') {
 			next({
-				path:'/home'
-			})
-		}else{
+				path: '/home'
+			});
+		} else {
 			NProgress.start();
 			next();
 		}
-
-	}else{
-    if (whiteList.includes(_to.path)) {
-      // 未登录可以访问白名单页面
-      next();
-    } else {
-      // 未登录且访问非白名单页面，重定向到登录页
-      next(`/login?redirect=${_to.path}`);
-      NProgress.done();
-    }
+	} else {
+		if (whiteList.includes(_to.path)) {
+			// 未登录可以访问白名单页面
+			next();
+		} else {
+			// 未登录且访问非白名单页面，重定向到登录页
+			next(`/login?redirect=${_to.path}`);
+			NProgress.done();
+		}
 	}
 });
 

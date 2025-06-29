@@ -46,9 +46,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 				dts: path.resolve(__dirname, './types/auto-imports.d.ts')
 			}),
 			Components({
-				dirs: [path.resolve(__dirname, './src/components/')],
 				resolvers: [IconsResolver(), ElementPlusResolver()],
-				dts: path.resolve(__dirname, './types/components.d.ts')
+				dts: path.resolve(__dirname, './types/components.d.ts'),
+				dirs: [path.resolve(__dirname, './src/components/')]
 			}),
 			Icons({
 				compiler: 'vue3',
