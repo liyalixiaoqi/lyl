@@ -78,17 +78,17 @@ const handleCurrentChange = (page: number) => {
 };
 
 const handleSearch = () => {
-	const { date, name } = projectInfo;
+
 	let result: ProjectItem[] = [];
-	if (date || name) {
-		if (date) {
+	if (projectInfo.date || projectInfo.name) {
+		if (projectInfo.date) {
 			result = projectList.value.filter((item: ProjectItem) => {
-				return item.date.indexOf(date) !== -1;
+				return item.date.indexOf(projectInfo.date) !== -1;
 			});
 		}
-		if (name) {
+		if (projectInfo.name) {
 			result = projectList.value.filter((item: ProjectItem) => {
-				return item.name.indexOf(name) !== -1;
+				return item.name.indexOf(projectInfo.name) !== -1;
 			});
 		}
 	} else {
