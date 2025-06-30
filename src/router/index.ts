@@ -2,6 +2,9 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import useUserStore from '@/stores/user/index';
+import useBreadcrumb from '@/stores/breacrumb/index';
+import { getBreadcrumbRoute } from '@/utils/common';
+
 // import.meta.glob 为 vite 提供的特殊导入方式
 // 它可以将模块中全部内容导入并返回一个Record对象
 // 默认为懒加载模式 加入配置项 eager 取消懒加载
@@ -22,6 +25,14 @@ const router = createRouter({
 });
 // 白名单路由
 const whiteList = ['/login'];
+const breadcrumbStore = useBreadcrumb();
+const handleBreadcrumb = (currentPath: string) => {
+	const route = router.getRoutes().find((item) => item.path === currentPath);
+	const parentRoutes = getBreadcrumbRoute(route?.name as string, router.options.routes as RouteRecordRaw[]);
+	console.log(parentRoutes, `parentRoutes`);
+	breadcrumbStore.setParentRoute(parentRoutes);
+};
+
 router.beforeEach(async (_to, _from, next) => {
 	console.log(localStorage.getItem('userInfo'), `localStorage.getItem('userInfo')`);
 
@@ -46,6 +57,7 @@ router.beforeEach(async (_to, _from, next) => {
 			NProgress.done();
 		}
 	}
+	handleBreadcrumb(_to.path);
 });
 
 router.afterEach((_to) => {
