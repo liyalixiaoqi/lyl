@@ -29,7 +29,7 @@ const breadcrumbStore = useBreadcrumb();
 const handleBreadcrumb = (currentPath: string) => {
 	const route = router.getRoutes().find((item) => item.path === currentPath);
 	const parentRoutes = getBreadcrumbRoute(route?.name as string, router.options.routes as RouteRecordRaw[]);
-	console.log(parentRoutes, `parentRoutes`);
+	console.log(router.options.routes, `parentRoutes`);
 	breadcrumbStore.setParentRoute(parentRoutes);
 };
 
