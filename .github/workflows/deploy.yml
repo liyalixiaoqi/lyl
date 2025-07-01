@@ -1,12 +1,13 @@
-name: Build and Deploy
+name: deploy
 
 on:
   push:
-    branches:
-      - master
+    branches:[master]
+    paths-ignore:
+      - README.md
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +29,8 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages         # 部署到 gh-pages 分支
-          folder: dist             # 打包输出目录
-          clean: true              # 清理旧文件
-          token: ${{ secrets.ANTH_TOKEN }}
+          publish_dir: ./dist             # 打包输出目录
+          github_token: ${{ secrets.ANTH_TOKEN }}
+          user_name: ${{secrets.MU_USER_NAME}}
+          user_email: ${{secrets.MU_USER_EMAIL}}
+          commit_message: 自动部署
