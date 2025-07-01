@@ -2,9 +2,8 @@ name: deploy
 
 on:
   push:
-    branches:[master]
-    paths-ignore:
-      - README.md
+    branches:
+      - master
 
 jobs:
   deploy:
