@@ -1,24 +1,33 @@
 name: Build and Deploy
-on: # 监听 master 分支上的 push 事件
+
+on:
   push:
     branches:
       - master
+
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # 构建环境使用 ubuntu
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout  # 将代码拉到虚拟机
-        uses: actions/checkout@v2.3.1  
-        with:
-          persist-credentials: false
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Install and Build # 下载依赖 打包项目
-        run: |
-          npm install
-          npm run build
-
-      - name: Deploy 🚀 # 部署
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          branch: gh-pages # 部署后提交到的分支
-          folder: dist # 这里填打包好的目录名称
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages         # 部署到 gh-pages 分支
+          folder: dist             # 打包输出目录
+          clean: true              # 清理旧文件
+          token: ${{ secrets.GITHUB_TOKEN }}
