@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VITE_APP_BASE_API: /api
+      VITE_APP_BASE_MOCK_API: /mock/api
 
     steps:
       - name: Checkout code
@@ -23,7 +26,10 @@ jobs:
 
       - name: Build project
         run: npm run build
-
+        
+      - name: 检查 dist 目录
+        run: ls -la ./dist
+        
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
