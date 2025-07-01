@@ -2,15 +2,13 @@ name: deploy
 
 on:
   push:
-    branches:
-      - master
+    branches:[master]
+    paths-ignore:
+      - README.md
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      VITE_APP_BASE_API: /api
-      VITE_APP_BASE_MOCK_API: /mock/api
 
     steps:
       - name: Checkout code
@@ -19,22 +17,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
       - name: Build project
         run: npm run build
-        
-      - name: 检查 dist 目录
-        run: ls -la ./dist
-        
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages         # 部署到 gh-pages 分支
-          publish_dir: ./dist             # 打包输出目录
+          branch: gh-pages
+          publish_dir: ./dist
           github_token: ${{ secrets.ANTH_TOKEN }}
           user_name: ${{ secrets.MU_USER_NAME }}
           user_email: ${{ secrets.MU_USER_EMAIL }}
