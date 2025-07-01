@@ -30,4 +30,4 @@ jobs:
           branch: gh-pages         # 部署到 gh-pages 分支
           folder: dist             # 打包输出目录
           clean: true              # 清理旧文件
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ANTH_TOKEN }}
