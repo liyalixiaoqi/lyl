@@ -20,10 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
-        
-      - name: Create .env.production file
-        run: |
-          echo "VITE_APP_BASE_API=/lyl/mock/api" >> .env.production
       
       - name: Build
         run: npm run build -- --mode production
